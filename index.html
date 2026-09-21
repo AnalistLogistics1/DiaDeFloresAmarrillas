@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#120821">
-<title>Una sorpresa para Doris 🌻</title>
+<title>Una sorpresa para Sofia 🌻</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Dancing+Script:wght@500;700&family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 /* =====================================================================
-   PARA DORIS  ·  hoja de estilos
+   PARA Sofia  ·  hoja de estilos
    Paleta: girasol (#FFC93C), ámbar quemado (#C1660B), noche violeta
    (#1A0B2E), crema papel (#F6ECE0), verde tallo (#2D6A4F)
    ===================================================================== */
@@ -659,7 +659,7 @@ html,body{
 .regalo-txt { margin-top: 22px; font-family: var(--f-mano); font-weight: 700; font-size: clamp(1.15rem,5.4vw,1.6rem); color: #ffdf8a; text-shadow: 0 0 14px rgba(255,201,60,.7); }
 
 /* Contenedor general de la sorpresa abierta */
-.contenido-final-doris {
+.contenido-final-Sofia {
   position: relative;
   z-index: 6;
   width: 100%;
@@ -703,25 +703,32 @@ html,body{
   border: 2px solid rgba(255,255,255,0.85);
   box-shadow: 0 10px 25px rgba(0,0,0,0.5);
   cursor: pointer;
-  transition: transform 0.4s ease, filter 0.6s ease, box-shadow 0.4s ease;
-  filter: blur(14px) brightness(0.65);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
   transform: scale(0.95);
   flex-shrink: 0;
 }
 
+
 .foto-card-final.nitida {
-  filter: blur(0px) brightness(1);
   transform: scale(1.03);
   box-shadow: 0 15px 35px rgba(255,201,60,0.4);
   border-color: var(--sol);
 }
+
 
 .foto-card-final img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  filter: blur(14px) brightness(0.65);
+  transition: filter 0.6s ease;
 }
+
+.foto-card-final.nitida img {
+  filter: blur(0px) brightness(1);
+}
+
 
 /* Mensaje y firma central */
 .final-msg-box {
@@ -765,13 +772,63 @@ html,body{
   font-size: clamp(0.82rem, 3.5vw, 0.98rem);
   white-space: nowrap;
 }
+/* ---- Botón revelar foto (vibración) ---- */
+.foto-card-final { position: relative; }
+
+.foto-reveal-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  border: none;
+  cursor: pointer;
+  padding: 9px 14px;
+  border-radius: 40px;
+  font-family: var(--f-texto);
+  font-weight: 700;
+  font-size: clamp(0.6rem, 2.8vw, 0.8rem);
+  color: #3a2408;
+  background: linear-gradient(45deg, #e8a91d, var(--sol));
+  box-shadow: 0 6px 18px rgba(255,201,60,.55);
+  white-space: nowrap;
+  animation: vibrarBtn 0.5s linear infinite;
+}
+
+@keyframes vibrarBtn {
+  0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+  20% { transform: translate(calc(-50% - 2px), -50%) rotate(-3deg); }
+  40% { transform: translate(calc(-50% + 2px), -50%) rotate(3deg); }
+  60% { transform: translate(calc(-50% - 2px), -50%) rotate(-2deg); }
+  80% { transform: translate(calc(-50% + 2px), -50%) rotate(2deg); }
+}
+
+.foto-card-final.nitida .foto-reveal-btn {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .5s ease;
+}
+
+/* ---- Mensaje entre el nombre y las fotos ---- */
+.mensaje-materializar {
+  z-index: 10;
+  max-width: 92%;
+  margin: 0 auto;
+  padding: 10px 16px;
+  text-align: center;
+  font-family: var(--f-mano);
+  font-weight: 700;
+  font-size: clamp(0.95rem, 4vw, 1.2rem);
+  line-height: 1.4;
+  color: #ffe9c9;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.55);
+  background: rgba(255,201,60,0.08);
 
 </style>
 </head>
 <body>
 <div id="progreso"><i id="progresoBarra"></i></div>
 <div id="hud">
-  <button class="hud-btn" id="btnSaltoRapido" style="background:rgba(255,201,60,0.4); font-weight:bold;" title="Ir directo a escena 11">⚡11</button>
   <button class="hud-btn" id="hudBack" aria-label="Escena anterior">‹</button>
   <button class="hud-btn" id="hudMusic" aria-label="Música">♪</button>
 </div>
@@ -784,7 +841,7 @@ html,body{
     <div class="particles" id="parts1"></div>
     <div class="intro-top">
       <h1 class="intro-title" id="introTitle">Para una personita muy especial…</h1>
-      <h2 class="intro-name" id="introName">Doris</h2>
+      <h2 class="intro-name" id="introName">Sofia</h2>
     </div>
     <div class="images-container">
       <div class="photo-card" id="cardStitch"><img id="imgStitch" alt="Stitch"></div>
@@ -798,7 +855,7 @@ html,body{
   <!-- ================= 2 · EL RAMO ================= -->
   <section class="scene" id="sc2">
     <div class="estrellas" id="estrellas2"></div>
-    <h1 class="ramo-title" id="ramoTitle">Ten tu ramo, Doris</h1>
+    <h1 class="ramo-title" id="ramoTitle">Ten tu ramo, Sofia</h1>
     <div id="bouquetContainer"></div>
     <div class="next-wrap"><button class="btn btn-teal" id="btnCont2">Sigue conmigo 🌻</button></div>
   </section>
@@ -869,14 +926,14 @@ html,body{
         <ellipse cx="80" cy="116" rx="9" ry="6" fill="#ff9aa2" opacity=".5"/>
         <ellipse cx="140" cy="116" rx="9" ry="6" fill="#ff9aa2" opacity=".5"/>
       </svg>
-      <div class="bocadillo" id="bocadilloMono">¡Hola, Doris! Toca la flor… 🌻</div>
+      <div class="bocadillo" id="bocadilloMono">¡Hola, Sofia! Toca la flor… 🌻</div>
     </div>
   </section>
 
   <!-- ================= 4 · EL ÁRBOL ================= -->
   <section class="scene" id="sc4">
     <div class="tree-panel" id="treePanel">
-      <p class="tp-title" id="tpTitle">Flores amarillas para ti, Doris:</p>
+      <p class="tp-title" id="tpTitle">Flores amarillas para ti, Sofia:</p>
       <p class="tp-line" id="tpLine"></p>
       <p class="tp-firma" id="tpFirma"></p>
     </div>
@@ -909,7 +966,7 @@ html,body{
       <div class="pl-art">🌻</div>
       <div class="pl-info">
         <b id="plTitle">Nuestra canción</b>
-        <span id="plArtist">Para Doris</span>
+        <span id="plArtist">Para Sofia</span>
         <div class="pl-bar"><i id="plFill"></i></div>
       </div>
       <button id="plBtn" aria-label="Reproducir">▶</button>
@@ -1065,18 +1122,24 @@ html,body{
     </div>
 
     <!-- Contenido final organizado -->
-    <div class="contenido-final-doris" id="contenidoFinalDoris">
-      <div class="titulo-particulas-box"></div>
+<div class="contenido-final-Sofia" id="contenidoFinalSofia">
+  <div class="titulo-particulas-box"></div>
 
-      <!-- Dos fotos cuadradas en el medio -->
-      <div class="fotos-container">
-        <div class="foto-card-final" id="foto1">
-          <img id="imgFoto1" alt="Recuerdo 1">
-        </div>
-        <div class="foto-card-final" id="foto2">
-          <img id="imgFoto2" alt="Recuerdo 2">
-        </div>
-      </div>
+  <p class="mensaje-materializar">Espero las fotos adjuntadas sean de tu agrado y que recuerdes todos los momentos compartidos.</p>
+
+  <!-- Dos fotos cuadradas en el medio -->
+  <div class="fotos-container">
+
+  <div class="foto-card-final" id="foto1">
+    <img id="imgFoto1" alt="Recuerdo 1">
+    <button class="foto-reveal-btn" type="button">HAZ CLICK AQUÍ</button>
+  </div>
+  <div class="foto-card-final" id="foto2">
+    <img id="imgFoto2" alt="Recuerdo 2">
+    <button class="foto-reveal-btn" type="button">HAZ CLICK AQUÍ</button>
+  </div>
+</div>
+
 
       <div class="final-msg-box">
         <p id="finalTexto"></p>
@@ -1097,7 +1160,7 @@ html,body{
    1) CONFIGURACIÓN — cambia aquí los textos, nombres y archivos
    ===================================================================== */
 const CFG = {
-  nombre: "Doris",
+  nombre: "Sofia",
   apodo: "",
 
   /* --- archivos (deben estar en la MISMA carpeta que este .html) --- */
@@ -1106,43 +1169,43 @@ const CFG = {
   imgFlores: "flores.jpg",
   imgFloress: "amarillas.jpeg",
   celis: "celis.jpeg",
-  doris: "doris.jpeg",
+  Sofia: "Sofia.jpeg",
 
-  cancionTitulo: "Nuestra canción",
-  cancionArtista: "Para Doris",
+  cancionTitulo: "Para Ti",
+  cancionArtista: "Sofia",
 
   /* --- ESCENA 1 --- */
-  introTitulo: "Para una personita muy especial…",
+  introTitulo: "Para una persona muy especial…",
 
   /* --- ESCENA 2 --- */
-  tituloRamo: "Ten tu ramo, Doris",
+  tituloRamo: "Ten tu ramo, Sofia",
 
   /* --- ESCENA 4 (árbol) --- */
-  arbolTitulo: "Flores amarillas para ti, Doris:",
-  arbolTexto: "Si pudiera elegir un lugar seguro, sería a tu lado.\n\nCuanto más tiempo paso contigo, más cuenta me doy de lo bonita que es la vida con alguien como tú.",
+  arbolTitulo: "Flores amarillas para ti, Sofia:",
+  arbolTexto: "Espero te guste este presente virtual que fue hecho con mucha dedicación.\n\n Ninguno de los 2 nos buscamos pero al final coincidimos que es lo mas importante.",
   arbolFirma: "--Con mucho cariño 🌻",
 
   /* --- ESCENA 5 (fuegos) --- */
-  textoFuegos: "Flores amarillas para la persona que ilumina mis días",
-  palabrasFuegos: ["🌼", "DORIS", "🌻", "SONRÍE", "🦋","🦋"],
+  textoFuegos: "Flores amarillas para ti en este día",
+  palabrasFuegos: ["🌼", "Sofia", "🌻", "SONRÍE", "ME IMPORTAS", "ERES IMPORTANTE","🦋","🦋"],
 
   /* --- ESCENA 6 (carta) --- */
-  cartaIntro: "Una carta que cruza kilómetros\ny llega directo a ti.",
-  carta: "Dicen que los girasoles buscan al sol, y yo siempre te busco a ti.\n\nAunque a veces la distancia se sienta larga, quiero que sepas que en cada amanecer pienso en ti, y que tu risa es lo mejor que le pasó a mis días.",
-  cartaFirma: "Siempre tuyo",
-  cartaPie: "Aunque la distancia nos separe, siempre giraré hacia ti,\ncomo un girasol al sol.",
+  cartaIntro: "Un presente que cruza kilómetros\npara llegar a ti.",
+  carta: "No soy tanto de detalles pero de alguna manera este presente ha nacido de forma espontánea.\n\n Y aunque a veces la distancia se sienta larga, tu sonrisa es algo que disfruto.",
+  cartaFirma: "Con mucho cariño",
+  cartaPie: "Aunque la distancia nos separe, te tengo presente,\nen los dias alejados.",
 
   /* --- ESCENA 7 (razones) --- */
   razonesTitulo: "Razones",
   // razonesSub: "por las que te quiero",
   razones: [
-    "Porque cada detalle tuyo se me queda grabado en el corazón.",
-    "Porque tu sonrisa ilumina hasta mis días más grises.",
-    "Porque en tu voz encuentro calma y ternura.",
-    "Porque me inspiras a ser mejor cada día.",
-    "Porque me haces creer en las cosas bonitas.",
-    "Porque contigo la distancia se siente más corta.",
-    "Porque tus abrazos, aunque sean de memoria, me dan paz.",
+    "Porque cada gesto tuyo habla por si solo.",
+    "Porque tu sonrisa es única.",
+    "Porque en tu compañia hay plenitud.",
+    "Porque apareciste sin buscarlo.",
+    "Porque puedo ser yo mismo contigo.",
+    "Porque contigo la distancia se siente corta.",
+    "Porque tus abrazos, me dan paz.",
     "Porque simplemente… eres tú, y eso ya lo es todo."
   ],
 
@@ -1157,7 +1220,7 @@ mensajesPetalos: [
   "Gracias por cada momento compartido 🌻",
   "Tu sonrisa siempre alegra el día 😄",
   "Espero que nunca te falten motivos para sonreír 💫",
-  "Qué bonito coincidir contigo en esta vida 🌼",
+  "Qué bonito coincidir contigo 🌼",
   "Y que sigamos compartiendo muchos momentos más 💛"
 ],
 
@@ -1168,14 +1231,14 @@ mensajesPetalos: [
 
   /* --- ESCENA 10 (lámpara) --- */
   lamparaTitulo: "Flores amarillas",
-  lamparaSub: "para ti, Doris",
+  lamparaSub: "para ti, Sofia",
 
   /* --- ESCENA 11 --- */
   bonitaTitulo: "Para la niña más bonita",
 
   /* --- ESCENA 12 (sorpresa final) --- */
   finalTexto: "Pase lo que pase, siempre vas a tener\nun jardín entero esperándote aquí.",
-  finalFirma: "Feliz día, Doris"
+  finalFirma: "Feliz día, Sofia"
 };
 
 /* =====================================================================
@@ -2151,8 +2214,8 @@ MOD.sc12 = (function(){
     fase = "vuela";
     setTimeout(()=> fase = "forma", 900);
     setTimeout(()=>{ 
-      $("contenidoFinalDoris").style.opacity = "1";
-      $("contenidoFinalDoris").style.pointerEvents = "auto";
+      $("contenidoFinalSofia").style.opacity = "1";
+      $("contenidoFinalSofia").style.pointerEvents = "auto";
       lluvia(); 
     }, 2800);
   }
@@ -2213,7 +2276,7 @@ MOD.sc12 = (function(){
       $("finalFirma").textContent = CFG.finalFirma;
 
       ponerImagen($("imgFoto1"), CFG.celis, "💐", "celis.jpeg");
-      ponerImagen($("imgFoto2"), CFG.doris, "�", "doris.jpeg");
+      ponerImagen($("imgFoto2"), CFG.Sofia, "�", "Sofia.jpeg");
 
       ["foto1", "foto2"].forEach(id => {
         $(id).addEventListener("click", () => {
@@ -2225,8 +2288,8 @@ MOD.sc12 = (function(){
       $("btnOtraVez").addEventListener("click", ()=> location.reload());
       $("btnRepetirSorpresa").addEventListener("click", ()=>{ 
         fase = "espera"; ps = []; 
-        $("contenidoFinalDoris").style.opacity = "0";
-        $("contenidoFinalDoris").style.pointerEvents = "none";
+        $("contenidoFinalSofia").style.opacity = "0";
+        $("contenidoFinalSofia").style.pointerEvents = "none";
         $("regaloWrap").style.opacity = "1";
         $("regaloWrap").style.pointerEvents = "auto";
         const tapa = document.getElementById("tapaRegalo");
@@ -2239,8 +2302,8 @@ MOD.sc12 = (function(){
     $("regaloWrap").style.pointerEvents = "auto";
     const tapa = document.getElementById("tapaRegalo");
     if(tapa) tapa.style.transform = "none";
-    $("contenidoFinalDoris").style.opacity = "0";
-    $("contenidoFinalDoris").style.pointerEvents = "none";
+    $("contenidoFinalSofia").style.opacity = "0";
+    $("contenidoFinalSofia").style.pointerEvents = "none";
 
     medir(); corriendo = true; bucle();
   }
